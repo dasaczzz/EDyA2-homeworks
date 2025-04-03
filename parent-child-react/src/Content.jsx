@@ -1,24 +1,27 @@
-import { useState } from 'react'
-import './index.css'
-import { List } from './List'
 
-export const Content = () => {
+import { useState } from "react";
+import CategoryInput from "./CategoryInput";
 
-  const [list, setList] = useState([])
-  const [item, setItem] = useState('')
 
-  const handleClick = () => {
-    setList([...list, item])
-    console.log(list)
-  }
+function Content() {
+  const [categories, setCategories] = useState([]);
+
+  const addCategory = (newCategory) => {
+    if (newCategory.trim() !== "") {
+      setCategories([...categories, newCategory]);
+    }
+  };
 
   return (
-    <>
-    <div className="topbar-div">
-      <input type="text" onChange={(e) => setItem(e.target.value)}/>
-      <button onClick={handleClick}>Add</button>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 w-full">
+      <CategoryInput addCategory={addCategory} />
+      <ul className="mt-4 w-64 bg-white p-4 rounded shadow">
+        {categories.map((category, index) => (
+          <li key={index} className="p-2 border-b text-center">{category}</li>
+        ))}
+      </ul>
     </div>
-    <List items={list}/>
-    </>
-  )
+  );
 }
+
+export default Content;
