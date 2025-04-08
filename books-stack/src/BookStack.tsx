@@ -4,17 +4,15 @@ import { BookForm } from "./BookForm"
 
 export const BookStack: React.FC = () => {
 
-  // we need a state to re renderize the component
-  const [_, forceUpdate] = useState(0)
+  const [books, setBooks] = useState(bookStack)
+  console.log(books)
 
   const handleAddBook = (book: Book) => {
-    bookStack.push(book)
-    forceUpdate(n => n + 1) // forzamos actualización
+    setBooks(books.push(book))
   }
 
-  const handlePop = () => {
-    bookStack.pop()
-    forceUpdate(n => n + 1)
+  const handleRemove = () => {
+    setBooks(books.pop())
   }
 
   return (
@@ -22,7 +20,7 @@ export const BookStack: React.FC = () => {
       <BookForm onAddBook={handleAddBook} />
 
       <button
-        onClick={handlePop}
+        onClick={handleRemove}
         className="mt-4 bg-red-600 text-white px-4 py-2 rounded"
       >
         Quitar último libro
@@ -30,10 +28,10 @@ export const BookStack: React.FC = () => {
 
       <h3 className="text-xl font-bold mt-6">Pila de libros</h3>
       <ul className="mt-4 space-y-2">
-        {bookStack.getItems().map((book, index) => (
-          <li key={index} className="border p-3 rounded bg-gray-100">
-            <strong>{book.name}</strong> - {book.author} ({book.isbn})<br />
-            <em>{book.editorial}</em>
+      {books.items.map(item => (
+          <li className="border border-stone-600 rounded-md px-4 py-2">
+            <h2 className="text-xl font-bold ">{item.name}</h2>
+            <span>{item.isbn}</span>
           </li>
         ))}
       </ul>

@@ -15,18 +15,22 @@ export class Book {
 }
 
 export class Stack {
-  private items: Book[]
+  public items: Book[]
 
-  constructor() {
-    this.items = []
+  constructor()
+  constructor(items: Book[])
+  constructor(items?: Book[]) {
+    this.items = items ??  []
   }
 
+  // add element from top
   push(book: Book) {
-    this.items.push(book)
+    return new Stack([book, ...this.items])
   }
 
+  // remove element from top
   pop() {
-    return this.items.length > 0 ? this.items.pop() : null;
+    return new Stack(this.items.slice(1))
   }
 
   peek() {
@@ -41,10 +45,6 @@ export class Stack {
     return this.items.length
   }
 
-  getItems(): Book[] {
-    return [...this.items].reverse()
-  }
-
 }
 
 // sample data
@@ -53,8 +53,6 @@ const book2 = new Book('1984', "4321", 'George Owell', 'Pinguin')
 const book3 = new Book('El principito', "9876", 'Antoine de Saint-Exupéry', 'Planeta')
 const book4 = new Book('El libro troll', "6789", 'El rubius', 'invento')
 
-export const bookStack = new Stack()
-bookStack.push(book1)
-bookStack.push(book2)
-bookStack.push(book3)
-bookStack.push(book4)
+const items = [book1, book2, book3, book4]
+
+export const bookStack = new Stack(items)
