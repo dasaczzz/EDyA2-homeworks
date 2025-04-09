@@ -1,18 +1,39 @@
 import { useDispatch, useSelector } from "react-redux"
-import { decrement, increment, incrementBy } from "./store/slices/counter/counterSlice"
+import { decrement, increment, incrementBy, setValueToIncrement } from "./store/slices/counter/counterSlice"
 
 function App() {
 
-  const {counter} = useSelector(state => state.counter)
-
+  const {counter, valueToIncrement} = useSelector(state => state.counter)
+  
   const dispatch = useDispatch()
+
+  const handleIncrement = () => {
+    dispatch(increment())  
+  }
+
+  const handleDecrement = () => {
+    dispatch(decrement())
+  }
+
+  const handleIncrementBy = () => {
+    const value = parseInt(valueToIncrement)
+    if(!value) return
+    dispatch(incrementBy(value))
+  }
+
+  const handleSetValue = (e) => {
+    dispatch(setValueToIncrement(e.target.value))
+  }
 
   return (
     <>
       <h1>count is: {counter}</h1>
-      <button onClick={() => dispatch(increment())}>increment</button>
-      <button onClick={() => dispatch(incrementBy(10))}>increment by</button>
-      <button onClick={() => dispatch(decrement())}>decrement</button>
+      <button onClick={handleIncrement}>increment</button>
+      <button onClick={handleIncrementBy}>increment by</button>
+      <button onClick={handleDecrement}>decrement</button>
+    
+      <h2>value to increment</h2>
+      <input type="number" onChange={handleSetValue}/>
     </>
   )
 } 
