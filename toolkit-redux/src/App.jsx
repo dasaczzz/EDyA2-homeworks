@@ -1,41 +1,12 @@
-import { useDispatch, useSelector } from "react-redux"
-import { decrement, increment, incrementBy, setValueToIncrement } from "./store/slices/counter/counterSlice"
+import { Counter } from './Counter'
+import { Stack } from './Stack'
 
-function App() {
-
-  const {counter, valueToIncrement} = useSelector(state => state.counter)
-  
-  const dispatch = useDispatch()
-
-  const handleIncrement = () => {
-    dispatch(increment())  
-  }
-
-  const handleDecrement = () => {
-    dispatch(decrement())
-  }
-
-  const handleIncrementBy = () => {
-    const value = parseInt(valueToIncrement)
-    if(!value) return
-    dispatch(incrementBy(value))
-  }
-
-  const handleSetValue = (e) => {
-    dispatch(setValueToIncrement(e.target.value))
-  }
-
-  return (
+export const App = () => {
+  return(
     <>
-      <h1>count is: {counter}</h1>
-      <button onClick={handleIncrement}>increment</button>
-      <button onClick={handleIncrementBy}>increment by</button>
-      <button onClick={handleDecrement}>decrement</button>
-    
-      <h2>value to increment</h2>
-      <input type="number" onChange={handleSetValue}/>
+      <h1>challenge 10 redux</h1>
+      <Counter />
+      <Stack />
     </>
   )
-} 
-
-export default App
+}
