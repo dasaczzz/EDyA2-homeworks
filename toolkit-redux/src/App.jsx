@@ -5,8 +5,10 @@ export const App = () => {
   return(
     <>
       <h1>challenge 10 redux</h1>
-      <Counter />
-      <Stack />
+      <div className='div-container'>
+        <Counter />
+        <Stack />
+      </div>
     </>
   )
 }

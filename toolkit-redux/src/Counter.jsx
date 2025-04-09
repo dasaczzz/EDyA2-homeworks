@@ -25,7 +25,7 @@ export const Counter = () => {
   }
 
   return (
-    <>
+    <div>
       <h1>count is: {counter}</h1>
       <button onClick={handleIncrement}>increment</button>
       <button onClick={handleIncrementBy}>increment by</button>
@@ -33,6 +33,6 @@ export const Counter = () => {
     
       <h2>value to increment</h2>
       <input type="number" onChange={handleSetValue}/>
-    </>
+    </div>
   )
 }
