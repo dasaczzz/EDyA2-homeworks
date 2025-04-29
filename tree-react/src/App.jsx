@@ -1,34 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { arbol, tree } from './data'
+import Tree from 'react-d3-tree';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  // print tree functions
+  const preorden = (node) => {
+    if(!node) return
+    console.log(node.valor)
+    preorden(node.izquierda)
+    preorden(node.derecha)
+  }
+
+  const inorden = (node) => {
+    if(!node) return
+    
+    inorden(node.izquierda)
+    console.log(node.valor)
+    inorden(node.derecha)
+  }
+
+  const postorden = (node) => {
+    if(!node) return
+    postorden(node.izquierda)
+    postorden(node.derecha) 
+    console.log(node.valor)
+  }
+
+  // function to verify if a value is in the tree
+  const check = (node, valor) => {
+    if(!node) return
+    if(node.valor === valor) return true
+    return check(node.izquierda, valor) || check(node.derecha, valor)
+  }
+
+  console.log(check(tree, 400))
+
+  console.log("------ PREORDEN ------")
+  preorden(tree)
+
+  console.log("------ INORDEN ------")
+  inorden(tree)
+  
+  console.log("------ POSTORDEN ------")
+  postorden(tree)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className='container'>
+      <h1>binary tree</h1>
+      <Tree data={arbol} />
+    </div>
   )
 }
 
